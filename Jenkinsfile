@@ -2,14 +2,18 @@ pipeline {
     agent any
     
     environment {
-        ANDROID_HOME = '/opt/android-sdk' // Update with your SDK path
+        ANDROID_HOME = '/opt/android-sdk'
         GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/MyAndroidApp.git'
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/aarham363/newapp.git',
+                    credentialsId: 'github-auth'  // Match credential ID
+                )
             }
         }
 
@@ -42,5 +46,5 @@ pipeline {
         always {
             cleanWs()
         }
-    }
+
 }
