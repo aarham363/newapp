@@ -12,7 +12,7 @@ pipeline {
                 git(
                     branch: 'main',
                     url: 'https://github.com/aarham363/newapp.git',
-                    credentialsId: 'github-auth'  // Match credential ID
+                    credentialsId: 'github-auth'
                 )
             }
         }
@@ -46,5 +46,5 @@ pipeline {
         always {
             cleanWs()
         }
-
-}
+    }
+}  // ← THIS CLOSING BRACE WAS MISSING
