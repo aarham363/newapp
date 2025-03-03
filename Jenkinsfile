@@ -19,6 +19,7 @@ pipeline {
 
         stage('Build') {
             steps {
+                sh 'chmod +x gradle'
                 sh './gradlew clean assembleDebug'
             }
         }
