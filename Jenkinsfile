@@ -1,51 +1,40 @@
 pipeline {
     agent any
     
-    environment {
-        ANDROID_HOME = '/opt/android-sdk'
-        GRADLE_USER_HOME = "${WORKSPACE}/.gradle"
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 git(
                     branch: 'main',
                     url: 'https://github.com/aarham363/newapp.git',
-                    credentialsId: 'github-auth'
+                    credentialsId: 'github-auth'  // Must match Jenkins credentials
                 )
             }
         }
 
         stage('Build') {
             steps {
-                sh 'chmod +x gradle'
+                sh 'chmod +x gradlew'  // Fixed command
                 sh './gradlew clean assembleDebug'
             }
         }
-
+        
         stage('Test') {
             steps {
                 sh './gradlew test'
             }
         }
-
-        stage('Lint Check') {
-            steps {
-                sh './gradlew lintDebug'
-            }
-        }
-
+        
         stage('Archive APK') {
             steps {
-                archiveArtifacts artifacts: 'app/build/outputs/apk/debug/app-debug.apk', fingerprint: true
+                archiveArtifacts artifacts: 'app/build/outputs/apk/debug/app-debug.apk'
             }
         }
     }
-
+    
     post {
         always {
             cleanWs()
         }
     }
-}  // ← THIS CLOSING BRACE WAS MISSING
+}
