@@ -1,0 +1,10 @@
+# Gradle
+.gradle/
+gradle-*.zip
+gradle-*/
+build/
+.idea/
+*.iml
+bin/
+out/
+
